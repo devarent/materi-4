@@ -1,0 +1,23 @@
+﻿=== Soal 3: Statement & Branch Coverage ===
+
+Kasus uji tunggal (nilai = 80):
+  S1  nilai = 80
+  S2  (true)  -> S3  cout << "Lulus"
+Lulus
+
+  Matriks cakupan pernyataan:
+  +----+------------------------+------------+
+  | ID | Pernyataan             | Dieksekusi |
+  +----+------------------------+------------+
+  | S1 | nilai = <input>        | YA         |
+  | S2 | if (nilai >= 60)       | YA         |
+  | S3 | cout << "Lulus"        | YA         |
+  | S4 | cout << "Tidak lulus"  | TIDAK      |
+  +----+------------------------+------------+
+  Statement coverage = 3/4 = 75.0%
+  Branch coverage    = 1/2 = 50.0%
+  Cabang true  : tercakup
+  Cabang false : BELUM tercakup
+
+Kesimpulan: cakupan belum 100%, perlu kasus uji tambahan dengan nilai < 60 (mis. 40).
+

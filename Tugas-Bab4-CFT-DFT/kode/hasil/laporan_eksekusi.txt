@@ -1,0 +1,451 @@
+﻿LAPORAN EKSEKUSI DAN VERIFIKASI
+Tugas Bab 4 - Software Structural Testing (CFT & DFT)
+Dihasilkan otomatis oleh kode/jalankan_semua.ps1
+Tanggal: 2026-11-08 14:44:44
+
+1. KOMPILASI (g++ -std=c++17 -Wall -Wextra)
+---------------------------------------------------------------
+soal02_nilai.cpp         : OK (tanpa peringatan)
+soal03_coverage.cpp      : OK (tanpa peringatan)
+soal04_kompleksitas.cpp  : OK (tanpa peringatan)
+soal05_infeasible.cpp    : OK (tanpa peringatan)
+soal06_diskon.cpp        : OK (tanpa peringatan)
+soal08_aliran_data.cpp   : OK (tanpa peringatan)
+soal09_kriteria.cpp      : OK (tanpa peringatan)
+soal10_krs.cpp           : OK (tanpa peringatan)
+
+2. KELUARAN SETIAP SKENARIO UJI
+---------------------------------------------------------------
+
+### soal02_input_75
+=== Soal 2: CFG nilai kelulusan ===
+Input nilai = 75
+[JEJAK] B1  nilai = 75
+[JEJAK] B2  if (nilai >= 60)
+[JEJAK] B3  cout << "Lulus"
+Lulus
+[JEJAK] B5  cout << "Selesai"
+Selesai
+[JEJAK] B6  return 0
+
+### soal02_input_50
+=== Soal 2: CFG nilai kelulusan ===
+Input nilai = 50
+[JEJAK] B1  nilai = 50
+[JEJAK] B2  if (nilai >= 60)
+[JEJAK] B4  cout << "Tidak lulus"
+Tidak lulus
+[JEJAK] B5  cout << "Selesai"
+Selesai
+[JEJAK] B6  return 0
+
+### soal03_satu_kasus_80
+=== Soal 3: Statement & Branch Coverage ===
+
+Kasus uji tunggal (nilai = 80):
+  S1  nilai = 80
+  S2  (true)  -> S3  cout << "Lulus"
+Lulus
+
+  Matriks cakupan pernyataan:
+  +----+------------------------+------------+
+  | ID | Pernyataan             | Dieksekusi |
+  +----+------------------------+------------+
+  | S1 | nilai = <input>        | YA         |
+  | S2 | if (nilai >= 60)       | YA         |
+  | S3 | cout << "Lulus"        | YA         |
+  | S4 | cout << "Tidak lulus"  | TIDAK      |
+  +----+------------------------+------------+
+  Statement coverage = 3/4 = 75.0%
+  Branch coverage    = 1/2 = 50.0%
+  Cabang true  : tercakup
+  Cabang false : BELUM tercakup
+
+Kesimpulan: cakupan belum 100%, perlu kasus uji tambahan dengan nilai < 60 (mis. 40).
+
+### soal03_dua_kasus
+=== Soal 3: Statement & Branch Coverage ===
+
+Kasus uji 1 (nilai = 80):
+  S1  nilai = 80
+  S2  (true)  -> S3  cout << "Lulus"
+Lulus
+
+Kasus uji 2 (nilai = 40):
+  S1  nilai = 40
+  S2  (false) -> S4  cout << "Tidak lulus"
+Tidak lulus
+
+--- Rekap seluruh kasus uji ---
+  Matriks cakupan pernyataan:
+  +----+------------------------+------------+
+  | ID | Pernyataan             | Dieksekusi |
+  +----+------------------------+------------+
+  | S1 | nilai = <input>        | YA         |
+  | S2 | if (nilai >= 60)       | YA         |
+  | S3 | cout << "Lulus"        | YA         |
+  | S4 | cout << "Tidak lulus"  | YA         |
+  +----+------------------------+------------+
+  Statement coverage = 4/4 = 100.0%
+  Branch coverage    = 2/2 = 100.0%
+  Cabang true  : tercakup
+  Cabang false : tercakup
+
+### soal04_kompleksitas
+=== Soal 4: Kompleksitas Siklomatis ===
+
+CFG: Kasus soal (E=10, N=9)
+  N (simpul)            = 9
+  E (sisi)              = 10
+  P (predikat)          = 2
+  Region (bidang)       = 3
+  V(G) = E - N + 2      = 10 - 9 + 2 = 3
+  V(G) = P + 1          = 2 + 1 = 3
+  V(G) = jumlah region  = 3
+  Konsisten             : YA
+  Arti: 3 jalur independen -> minimal 3 kasus uji untuk basis path testing.
+
+CFG: CFG Soal 2 (if-else + merge)
+  N (simpul)            = 6
+  E (sisi)              = 6
+  P (predikat)          = 1
+  Region (bidang)       = 2
+  V(G) = E - N + 2      = 6 - 6 + 2 = 2
+  V(G) = P + 1          = 1 + 1 = 2
+  V(G) = jumlah region  = 2
+  Konsisten             : YA
+  Arti: 2 jalur independen -> minimal 2 kasus uji untuk basis path testing.
+
+CFG: CFG Soal 10 (KRS, dua if berurutan)
+  N (simpul)            = 8
+  E (sisi)              = 9
+  P (predikat)          = 2
+  Region (bidang)       = 3
+  V(G) = E - N + 2      = 9 - 8 + 2 = 3
+  V(G) = P + 1          = 2 + 1 = 3
+  V(G) = jumlah region  = 3
+  Konsisten             : YA
+  Arti: 3 jalur independen -> minimal 3 kasus uji untuk basis path testing.
+
+Catatan: V(G) adalah batas atas jumlah jalur independen.
+Jika ada jalur tak layak (infeasible), jumlah kasus uji yang
+benar-benar dapat dijalankan bisa lebih kecil dari V(G).
+
+### soal05_infeasible
+=== Soal 5: Analisis Jalur Tak Layak ===
+
+1) Analisis simbolik (tanpa eksekusi)
+   Syarat simpul B3 (cout "Proses A"):
+     c1: x > 10
+     c2: x < 5
+   Gabungan: x > 10 DAN x < 5
+   Interval c1 = (10, +inf), interval c2 = (-inf, 5)
+   Irisan    = kosong (empty set)
+   Kesimpulan: jalur B1->B2->B3->B4 TIDAK LAYAK (infeasible).
+
+2) Pembuktian empiris (brute force)
+   Rentang x yang disisir : [-1000000, 1000000]
+   Jumlah x yang mencapai "Proses A" : 0
+   Tidak ada input yang dapat mengeksekusi B3.
+
+3) Jalur yang LAYAK pada CFG tersebut
+   P1: B1->B2(true)->B3(false)->B4   (x > 10, x >= 5)
+   P2: B1->B2(false)->B4             (x <= 10)
+   P3: B1->B2(true)->B3(true)->...   (TIDAK LAYAK)
+
+4) Implikasi pengujian
+   - Jangan buang waktu mencari input untuk P3.
+   - Dokumentasikan P3 sebagai infeasible beserta alasannya.
+   - Perbaiki struktur kondisi bila memang ada maksud logika lain
+     (mis. x > 10 && x < 5 kemungkinan salah tulis).
+
+### soal06_tabel_batas
+=== Soal 6: Eksekusi Simbolik & Vektor Input ===
+
+Syarat cabang TRUE : C  = (totalBelanja >= 500000)
+Syarat cabang FALSE: ~C = (totalBelanja < 500000)
+
+Input       Alasan                                  Cabang yang dijalankan
+--------------------------------------------------------------------------------------------
+750000      jauh di atas batas                      TRUE  (diskon)
+500000      tepat pada batas (boundary)             TRUE  (diskon)
+499999      satu di bawah batas (boundary - 1)      FALSE (tanpa diskon)
+250000      jauh di bawah batas                     FALSE (tanpa diskon)
+0           nilai minimum                           FALSE (tanpa diskon)
+
+Kesimpulan: dua vektor input minimal yang menjamin kedua cabang
+tercakup adalah (750000) dan (250000); nilai batas 500000/499999
+ditambahkan untuk menguji ketepatan perbandingan >=.
+
+### soal08_aliran_data
+=== Soal 8: Anomali Aliran Data ===
+
+Jejak peristiwa data:
+  [1] deklarasi  : int nilai;            (belum ada nilai)
+  [2] definisi   : nilai = 70            (d1)
+  [3] definisi   : nilai = 85            (d2, d1 ditimpa)
+  [4] penggunaan : cout << nilai         (u1 membaca d2)
+
+Keluaran program: 85
+
+Analisis:
+  - Nilai yang ditampilkan adalah 85 (definisi terakhir sebelum use).
+  - Nilai 70 adalah dead assignment: didefinisikan lalu langsung
+    ditimpa tanpa pernah dibaca -> anomali DDU (Definisi-Definisi-
+    Penggunaan) / definisi tanpa penggunaan.
+  - Pasangan def-use yang sah: (d2, u1). Pasangan (d1, u1) TIDAK ADA
+    karena d1 sudah di-kill oleh d2.
+  - Pada kode asli tanpa inisialisasi, bila d1 dan d2 dihapus maka u1
+    menjadi use-before-def (nilai tak terdefinisi) -> bug.
+
+### soal09_dua_kasus
+=== Soal 9: Kriteria Cakupan Aliran Data ===
+
+Kasus uji 1: harga = 100000
+  d1: harga  = 100000
+  d2: diskon = 0
+  u1: p-use harga pada kondisi (harga > 50000) -> TRUE
+  d3: diskon = 10 (d2 ditimpa)
+  u2: c-use harga -> total = 100000 - 10 = 99990
+  u3: c-use diskon (nilai 10)
+  d4: total = 99990
+  u4: c-use total -> 99990
+
+Kasus uji 2: harga = 30000
+  d1: harga  = 30000
+  d2: diskon = 0
+  u1: p-use harga pada kondisi (harga > 50000) -> FALSE
+  u2: c-use harga -> total = 30000 - 0 = 30000
+  u3: c-use diskon (nilai 0)
+  d4: total = 30000
+  u4: c-use total -> 30000
+
+--- Rekap ---
+Peristiwa tercakup : d1 d2 d3 d4 u1 u2 u3 u4 
+Pasangan def-use  : d1->u1 d1->u2 d2->u3 d3->u3 d4->u4 
+
+Cakupan All-Defs  : d1, d2, d3, d4 masing-masing mencapai use
+Cakupan All-Uses  : 5 pasangan layak -> butuh 2 kasus uji
+All-DU-Paths      : d1->u2 memiliki 2 jalur berbeda (true/false)
+
+### soal10_asli
+=== Soal 10: KRS - CFT & DFT ===
+
+Mode asli (statusMahasiswa = 1 konstan):
+  [JEJAK] B1  sks = 0
+  [JEJAK] B2  baca statusMahasiswa = 1
+  [JEJAK] B3  if (statusMahasiswa == 1)
+  [JEJAK] B4  sks = 20
+  [JEJAK] B5  if (sks >= 20)
+  [JEJAK] B6  cout "Boleh mengambil mata kuliah"
+Boleh mengambil mata kuliah
+  [JEJAK] B8  selesai
+
+Catatan statis:
+  - Karena statusMahasiswa selalu 1, cabang else pada B3 tidak
+    mungkin dieksekusi -> jalur B1-B2-B3(false)-B5-B7-B8 tidak layak.
+  - Cabang B5 false juga tidak layak karena sks pasti 20 setelah B4.
+  - Agar kedua cabang dapat diuji, statusMahasiswa harus menjadi
+    parameter/input (lihat mode parametrik).
+
+### soal10_status_1
+=== Soal 10: KRS - CFT & DFT ===
+
+Mode parametrik: statusMahasiswa = 1
+  [JEJAK] B1  sks = 0
+  [JEJAK] B2  baca statusMahasiswa = 1
+  [JEJAK] B3  if (statusMahasiswa == 1)
+  [JEJAK] B4  sks = 20
+  [JEJAK] B5  if (sks >= 20)
+  [JEJAK] B6  cout "Boleh mengambil mata kuliah"
+Boleh mengambil mata kuliah
+  [JEJAK] B8  selesai
+
+### soal10_status_0
+=== Soal 10: KRS - CFT & DFT ===
+
+Mode parametrik: statusMahasiswa = 0
+  [JEJAK] B1  sks = 0
+  [JEJAK] B2  baca statusMahasiswa = 0
+  [JEJAK] B3  if (statusMahasiswa == 1)
+  [JEJAK] B3  (false) -> B5
+  [JEJAK] B5  if (sks >= 20)
+  [JEJAK] B7  cout "Tidak boleh mengambil mata kuliah"
+Tidak boleh mengambil mata kuliah
+  [JEJAK] B8  selesai
+
+3. VERIFIKASI MODEL CFG, CAKUPAN, DAN ALIRAN DATA
+---------------------------------------------------------------
+LAPORAN VERIFIKASI OTOMATIS - TUGAS BAB 4 (CFT & DFT)
+Dihasilkan oleh kode/alat/verifikasi_tugas.py
+
+==============================================================================
+1. VERIFIKASI CFG, V(G), DAN BASIS JALUR INDEPENDEN
+==============================================================================
+CFG: Soal 2 - nilai kelulusan
+  N = 6, E = 6, predikat = 1, V(G) = 2
+  Simpul:
+    B1: nilai = 75
+    B2: if (nilai >= 60)
+    B3: cout << "Lulus"
+    B4: cout << "Tidak lulus"
+    B5: cout << "Selesai"
+    B6: end
+  Sisi: B1->B2, B2->B3, B2->B4, B3->B5, B4->B5, B5->B6
+  Jalur sederhana (2):
+    B1 -> B2 -> B4 -> B5 -> B6
+    B1 -> B2 -> B3 -> B5 -> B6
+  Basis jalur independen (2):
+    B1 -> B2 -> B4 -> B5 -> B6
+    B1 -> B2 -> B3 -> B5 -> B6
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 6 - 6 + 2 = 2
+  Predikat + 1      = 1 + 1 = 2
+
+CFG: Soal 3 - cakupan pernyataan & cabang
+  N = 5, E = 5, predikat = 1, V(G) = 2
+  Simpul:
+    S1: int nilai = <input>
+    S2: if (nilai >= 60)
+    S3: cout << "Lulus"
+    S4: cout << "Tidak lulus"
+    S5: end
+  Sisi: S1->S2, S2->S3, S2->S4, S3->S5, S4->S5
+  Jalur sederhana (2):
+    S1 -> S2 -> S4 -> S5
+    S1 -> S2 -> S3 -> S5
+  Basis jalur independen (2):
+    S1 -> S2 -> S4 -> S5
+    S1 -> S2 -> S3 -> S5
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 5 - 5 + 2 = 2
+  Predikat + 1      = 1 + 1 = 2
+
+CFG: Soal 9 contoh 1 - harga & diskon
+  N = 7, E = 7, predikat = 1, V(G) = 2
+  Simpul:
+    B1: harga = <input>
+    B2: diskon = 0
+    B3: if (harga > 50000)
+    B4: diskon = 10
+    B5: total = harga - diskon
+    B6: cout << total
+    B7: end
+  Sisi: B1->B2, B2->B3, B3->B4, B3->B5, B4->B5, B5->B6, B6->B7
+  Jalur sederhana (2):
+    B1 -> B2 -> B3 -> B5 -> B6 -> B7
+    B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B7
+  Basis jalur independen (2):
+    B1 -> B2 -> B3 -> B5 -> B6 -> B7
+    B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B7
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 7 - 7 + 2 = 2
+  Predikat + 1      = 1 + 1 = 2
+
+CFG: Soal 10 - aplikasi KRS
+  N = 8, E = 9, predikat = 2, V(G) = 3
+  Simpul:
+    B1: sks = 0
+    B2: baca statusMahasiswa
+    B3: if (statusMahasiswa == 1)
+    B4: sks = 20
+    B5: if (sks >= 20)
+    B6: cout << "Boleh mengambil mata kuliah"
+    B7: cout << "Tidak boleh mengambil mata kuliah"
+    B8: end
+  Sisi: B1->B2, B2->B3, B3->B4, B3->B5, B4->B5, B5->B6, B5->B7, B6->B8, B7->B8
+  Jalur sederhana (4):
+    B1 -> B2 -> B3 -> B5 -> B7 -> B8
+    B1 -> B2 -> B3 -> B5 -> B6 -> B8
+    B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+    B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B8
+  Basis jalur independen (3):
+    B1 -> B2 -> B3 -> B5 -> B7 -> B8
+    B1 -> B2 -> B3 -> B5 -> B6 -> B8
+    B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 9 - 8 + 2 = 3
+  Predikat + 1      = 2 + 1 = 3
+
+Kasus Soal 4 (diberikan): E = 10, N = 9, satu komponen graf
+  V(G) = E - N + 2 = 10 - 9 + 2 = 3
+  Arti: 3 jalur independen -> basis path testing butuh 3 kasus uji.
+
+==============================================================================
+2. VERIFIKASI STATEMENT & BRANCH COVERAGE (SOAL 3)
+==============================================================================
+
+Skenario: hanya nilai 80
+  input   80 -> pernyataan ['S1', 'S2', 'S3'], cabang TRUE
+  Statement coverage = 3/4 = 75%
+  Branch coverage    = 1/2 = 50%
+
+Skenario: nilai 80 dan 40
+  input   80 -> pernyataan ['S1', 'S2', 'S3'], cabang TRUE
+  input   40 -> pernyataan ['S1', 'S2', 'S4'], cabang FALSE
+  Statement coverage = 4/4 = 100%
+  Branch coverage    = 2/2 = 100%
+
+Kesimpulan: satu kasus uji (80) menghasilkan 75% statement coverage
+dan 50% branch coverage; tambahan kasus uji 40 mencapai 100%/100%.
+
+==============================================================================
+3. VERIFIKASI JALUR LAYAK / TIDAK LAYAK
+==============================================================================
+Soal 5: syarat mencapai "Proses A" adalah x > 10 DAN x < 5
+  Penyisiran x pada [-2000, 2000] : 0 nilai memenuhi
+  Analisis interval: (10, +inf) interseksi (-inf, 5) = kosong
+  Kesimpulan: jalur B1->B2->B3(true) TIDAK LAYAK (infeasible)
+Soal 10a: kode asli dengan statusMahasiswa = 1 (konstan)
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B5 -> B7 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B5 -> B6 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+  LAYAK      : B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B8
+  Jumlah jalur sederhana = 4, layak = 1, tidak layak = 3
+  V(G) = 3 tetapi jalur layak hanya 1.
+  -> V(G) adalah batas ATAS, bukan jaminan jumlah jalur yang dapat diuji.
+
+Soal 10b: setelah statusMahasiswa dijadikan input (refactoring)
+  LAYAK      : B1 -> B2 -> B3 -> B5 -> B7 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B5 -> B6 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+  LAYAK      : B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B8
+  layak = 2, tidak layak = 2; dua kasus uji (status 1 dan 0) mencapai 100% branch coverage.
+
+==============================================================================
+4. ANALISIS ALIRAN DATA: PASANGAN DU & ANOMALI
+==============================================================================
+Soal 8 - kode: int nilai; nilai = 70; nilai = 85; cout << nilai;
+Jalur dianalisis : 1
+Pasangan DU      : 1
+  (B3 -> B4) var 'nilai' : 1 jalur unik
+Anomali def-without-use (dead store):
+  definisi nilai di B2 tidak pernah digunakan
+  Kesimpulan: keluaran 85; definisi 70 adalah dead store (DDU).
+
+Soal 9 contoh 1 - kode: harga/diskon dengan cabang if
+Jalur dianalisis : 2
+Pasangan DU      : 5
+  (B1 -> B3) var 'harga' : 1 jalur unik
+  (B1 -> B5) var 'harga' : 2 jalur unik
+  (B2 -> B5) var 'diskon' : 1 jalur unik
+  (B4 -> B5) var 'diskon' : 1 jalur unik
+  (B5 -> B6) var 'total' : 1 jalur unik
+  Kriteria (terpenuhi/total): {'All-Defs': (4, 4), 'All-Uses': (5, 5), 'All-DU-Paths': (6, 6)}
+  Catatan: (d2 -> u3) hanya terpenuhi pada jalur FALSE,
+           (d3 -> u3) hanya pada jalur TRUE -> All-Uses butuh 2 kasus uji.
+
+Soal 10 - kode KRS (statusMahasiswa sebagai input)
+Jalur dianalisis : 4
+Pasangan DU      : 3
+  (B1 -> B5) var 'sks' : 1 jalur unik
+  (B2 -> B3) var 'statusMahasiswa' : 1 jalur unik
+  (B4 -> B5) var 'sks' : 1 jalur unik
+  Catatan: pada jalur mahasiswa aktif, definisi sks = 0 (B1)
+           langsung ditimpa sks = 20 (B4) -> dead store lokal (DDU).
+           statusMahasiswa hanya punya 1 definisi (B2), 1 p-use (B3).
+
+==============================================================================
+SEMUA PEMERIKSAAN (assert) LULUS - angka pada dokumen konsisten.
+==============================================================================
+

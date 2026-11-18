@@ -1,0 +1,23 @@
+﻿==============================================================
+DEMO UNIT TEST vs INTEGRATION TEST
+==============================================================
+SensorJarak mengirim data dalam METER.
+Layar membaca data dalam SENTIMETER.
+
+Pemeriksaan                   Hasil             Status
+------------------------------------------------------------
+Unit SensorJarak              1.25 m            LULUS
+Unit Layar(125.0)             125.00 cm         LULUS
+Integrasi tanpa adapter       1.25 cm           GAGAL
+Integrasi + adapter           125.00 cm         LULUS
+
+Simulasi Top-Down dengan stub:
+  Stub mengembalikan 125 cm -> 125.00 cm -> LULUS SEMU
+  Stub yang tidak realistis menyembunyikan cacat satuan.
+
+Kesimpulan:
+  1. Unit SensorJarak LULUS dan unit Layar LULUS.
+  2. Integrasi tanpa adapter GAGAL: 1.25 m dibaca menjadi 1.25 cm.
+  3. Adapter meter->cm membuat integrasi LULUS.
+  4. Inilah cacat antarmuka yang tidak ditemukan Unit Testing.
+

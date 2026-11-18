@@ -1,0 +1,17 @@
+﻿=== Soal 6: Eksekusi Simbolik & Vektor Input ===
+
+Syarat cabang TRUE : C  = (totalBelanja >= 500000)
+Syarat cabang FALSE: ~C = (totalBelanja < 500000)
+
+Input       Alasan                                  Cabang yang dijalankan
+--------------------------------------------------------------------------------------------
+750000      jauh di atas batas                      TRUE  (diskon)
+500000      tepat pada batas (boundary)             TRUE  (diskon)
+499999      satu di bawah batas (boundary - 1)      FALSE (tanpa diskon)
+250000      jauh di bawah batas                     FALSE (tanpa diskon)
+0           nilai minimum                           FALSE (tanpa diskon)
+
+Kesimpulan: dua vektor input minimal yang menjamin kedua cabang
+tercakup adalah (750000) dan (250000); nilai batas 500000/499999
+ditambahkan untuk menguji ketepatan perbandingan >=.
+

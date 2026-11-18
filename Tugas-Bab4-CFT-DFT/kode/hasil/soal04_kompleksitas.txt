@@ -1,0 +1,39 @@
+﻿=== Soal 4: Kompleksitas Siklomatis ===
+
+CFG: Kasus soal (E=10, N=9)
+  N (simpul)            = 9
+  E (sisi)              = 10
+  P (predikat)          = 2
+  Region (bidang)       = 3
+  V(G) = E - N + 2      = 10 - 9 + 2 = 3
+  V(G) = P + 1          = 2 + 1 = 3
+  V(G) = jumlah region  = 3
+  Konsisten             : YA
+  Arti: 3 jalur independen -> minimal 3 kasus uji untuk basis path testing.
+
+CFG: CFG Soal 2 (if-else + merge)
+  N (simpul)            = 6
+  E (sisi)              = 6
+  P (predikat)          = 1
+  Region (bidang)       = 2
+  V(G) = E - N + 2      = 6 - 6 + 2 = 2
+  V(G) = P + 1          = 1 + 1 = 2
+  V(G) = jumlah region  = 2
+  Konsisten             : YA
+  Arti: 2 jalur independen -> minimal 2 kasus uji untuk basis path testing.
+
+CFG: CFG Soal 10 (KRS, dua if berurutan)
+  N (simpul)            = 8
+  E (sisi)              = 9
+  P (predikat)          = 2
+  Region (bidang)       = 3
+  V(G) = E - N + 2      = 9 - 8 + 2 = 3
+  V(G) = P + 1          = 2 + 1 = 3
+  V(G) = jumlah region  = 3
+  Konsisten             : YA
+  Arti: 3 jalur independen -> minimal 3 kasus uji untuk basis path testing.
+
+Catatan: V(G) adalah batas atas jumlah jalur independen.
+Jika ada jalur tak layak (infeasible), jumlah kasus uji yang
+benar-benar dapat dijalankan bisa lebih kecil dari V(G).
+

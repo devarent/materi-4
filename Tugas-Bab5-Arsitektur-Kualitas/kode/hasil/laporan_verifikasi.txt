@@ -1,0 +1,39 @@
+﻿LAPORAN VERIFIKASI OTOMATIS - TUGAS BAB 5
+Arsitektur Kualitas Perangkat Lunak
+Domain Testing & System Integration Testing
+======================================================================
+
+1. BATAS DOMAIN USIA (aturan: usia >= 18)
+--------------------------------------------------------------
+Jenis batas : tertutup (>=), nilai 18 termasuk domain sah
+Titik ON    : 18 (tepat di garis batas, DITERIMA)
+Titik OFF   : 17 (tetangga terdekat di luar domain, DITOLAK)
+Status      : ON=18 diterima, OFF=17 ditolak -> sesuai
+Deteksi     : closure & shift kanan ditangkap ON=18,
+              shift kiri ditangkap OFF=17
+Catatan     : usia 19/25/40 tidak membedakan keempat versi
+
+2. HARGA TIKET (usia < 12 -> Rp25.000, selain itu Rp50.000)
+--------------------------------------------------------------
+Domain bug  : usia 12 seharusnya 50.000, terbaca 25.000
+Komputasi   : usia 10 seharusnya 25.000, terbaca 40.000
+Kesimpulan  : domain bug hanya di batas; komputasi di dalam domain
+
+3. INTEGRASI SATUAN (sensor meter -> layar sentimeter)
+--------------------------------------------------------------
+Unit sensor : 1.25 m  -> LULUS
+Unit layar  : 125.00 cm -> LULUS
+Integrasi   : 1.25 m dibaca 1.25 cm -> GAGAL
+Adapter     : 1.25 m x 100 = 125.00 cm -> LULUS
+
+4. TAKSONOMI CACAT DOMAIN
+--------------------------------------------------------------
+Closure : >= 18 vs > 18 (operator berbeda)
+Shifted : >= 18 vs >= 19 / >= 17 (garis bergeser)
+Tilted  : x + y <= 10 vs 2x + y <= 10
+          titik (5,5): benar 10 <= 10, salah 15 <= 10
+
+======================================================================
+SEMUA PEMERIKSAAN (assert) LULUS - angka pada dokumen konsisten.
+======================================================================
+

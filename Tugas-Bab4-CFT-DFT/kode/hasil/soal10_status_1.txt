@@ -1,0 +1,12 @@
+﻿=== Soal 10: KRS - CFT & DFT ===
+
+Mode parametrik: statusMahasiswa = 1
+  [JEJAK] B1  sks = 0
+  [JEJAK] B2  baca statusMahasiswa = 1
+  [JEJAK] B3  if (statusMahasiswa == 1)
+  [JEJAK] B4  sks = 20
+  [JEJAK] B5  if (sks >= 20)
+  [JEJAK] B6  cout "Boleh mengambil mata kuliah"
+Boleh mengambil mata kuliah
+  [JEJAK] B8  selesai
+

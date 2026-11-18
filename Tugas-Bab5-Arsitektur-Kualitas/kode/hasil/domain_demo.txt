@@ -1,0 +1,40 @@
+﻿==============================================================
+DEMO DOMAIN TESTING - PENDAFTARAN USIA >= 18
+==============================================================
+Batas     : TERTUTUP (operator >=, nilai 18 termasuk domain sah)
+Domain    : usia 18, 19, 20, ... diterima; 17, 16, ... ditolak
+Titik ON  : 18 (tepat di garis batas, di dalam domain)
+Titik OFF : 17 (tetangga terdekat di luar domain)
+
+Usia  Harapan    Benar(>=18)   Closure(>18)   Shift(>=19)     Shift(>=17)     
+------------------------------------------------------------------------------
+17    DITOLAK    DITOLAK       DITOLAK        DITOLAK         DITERIMA *      
+18    DITERIMA   DITERIMA      DITOLAK *      DITOLAK *       DITERIMA        
+19    DITERIMA   DITERIMA      DITERIMA       DITERIMA        DITERIMA        
+25    DITERIMA   DITERIMA      DITERIMA       DITERIMA        DITERIMA        
+
+Tanda * = hasil menyimpang dari aturan (cacat terdeteksi).
+Kesimpulan:
+  1. Closure error (>18) tertangkap oleh titik ON 18.
+  2. Shift ke kanan (>=19) juga tertangkap oleh 18.
+  3. Shift ke kiri (>=17) tertangkap oleh titik OFF 17.
+  4. Uji 19 dan 25 saja TIDAK cukup: keempat versi menerima.
+
+==============================================================
+DEMO CACAT KOMPUTASI - HARGA TIKET BIODATA
+==============================================================
+Aturan: usia < 12 -> Rp25.000; selain itu -> Rp50.000
+
+Usia  Harga benar   DomainBug(<=12)   KomputasiBug(0.8)   
+------------------------------------------------------------
+10    25000         25000             40000 *             
+11    25000         25000             40000 *             
+12    50000         25000 *           50000               
+18    50000         50000             50000               
+
+Tanda * = harga menyimpang dari aturan.
+Kesimpulan:
+  1. Domain bug hanya muncul di batas (usia 12).
+  2. Computation bug muncul di dalam domain (usia 10 dan 11).
+  3. Karena itu pengujian memerlukan titik batas DAN nilai nominal.
+

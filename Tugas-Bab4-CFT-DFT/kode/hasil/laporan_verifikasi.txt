@@ -1,0 +1,172 @@
+LAPORAN VERIFIKASI OTOMATIS - TUGAS BAB 4 (CFT & DFT)
+Dihasilkan oleh kode/alat/verifikasi_tugas.py
+
+==============================================================================
+1. VERIFIKASI CFG, V(G), DAN BASIS JALUR INDEPENDEN
+==============================================================================
+CFG: Soal 2 - nilai kelulusan
+  N = 6, E = 6, predikat = 1, V(G) = 2
+  Simpul:
+    B1: nilai = 75
+    B2: if (nilai >= 60)
+    B3: cout << "Lulus"
+    B4: cout << "Tidak lulus"
+    B5: cout << "Selesai"
+    B6: end
+  Sisi: B1->B2, B2->B3, B2->B4, B3->B5, B4->B5, B5->B6
+  Jalur sederhana (2):
+    B1 -> B2 -> B4 -> B5 -> B6
+    B1 -> B2 -> B3 -> B5 -> B6
+  Basis jalur independen (2):
+    B1 -> B2 -> B4 -> B5 -> B6
+    B1 -> B2 -> B3 -> B5 -> B6
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 6 - 6 + 2 = 2
+  Predikat + 1      = 1 + 1 = 2
+
+CFG: Soal 3 - cakupan pernyataan & cabang
+  N = 5, E = 5, predikat = 1, V(G) = 2
+  Simpul:
+    S1: int nilai = <input>
+    S2: if (nilai >= 60)
+    S3: cout << "Lulus"
+    S4: cout << "Tidak lulus"
+    S5: end
+  Sisi: S1->S2, S2->S3, S2->S4, S3->S5, S4->S5
+  Jalur sederhana (2):
+    S1 -> S2 -> S4 -> S5
+    S1 -> S2 -> S3 -> S5
+  Basis jalur independen (2):
+    S1 -> S2 -> S4 -> S5
+    S1 -> S2 -> S3 -> S5
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 5 - 5 + 2 = 2
+  Predikat + 1      = 1 + 1 = 2
+
+CFG: Soal 9 contoh 1 - harga & diskon
+  N = 7, E = 7, predikat = 1, V(G) = 2
+  Simpul:
+    B1: harga = <input>
+    B2: diskon = 0
+    B3: if (harga > 50000)
+    B4: diskon = 10
+    B5: total = harga - diskon
+    B6: cout << total
+    B7: end
+  Sisi: B1->B2, B2->B3, B3->B4, B3->B5, B4->B5, B5->B6, B6->B7
+  Jalur sederhana (2):
+    B1 -> B2 -> B3 -> B5 -> B6 -> B7
+    B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B7
+  Basis jalur independen (2):
+    B1 -> B2 -> B3 -> B5 -> B6 -> B7
+    B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B7
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 7 - 7 + 2 = 2
+  Predikat + 1      = 1 + 1 = 2
+
+CFG: Soal 10 - aplikasi KRS
+  N = 8, E = 9, predikat = 2, V(G) = 3
+  Simpul:
+    B1: sks = 0
+    B2: baca statusMahasiswa
+    B3: if (statusMahasiswa == 1)
+    B4: sks = 20
+    B5: if (sks >= 20)
+    B6: cout << "Boleh mengambil mata kuliah"
+    B7: cout << "Tidak boleh mengambil mata kuliah"
+    B8: end
+  Sisi: B1->B2, B2->B3, B3->B4, B3->B5, B4->B5, B5->B6, B5->B7, B6->B8, B7->B8
+  Jalur sederhana (4):
+    B1 -> B2 -> B3 -> B5 -> B7 -> B8
+    B1 -> B2 -> B3 -> B5 -> B6 -> B8
+    B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+    B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B8
+  Basis jalur independen (3):
+    B1 -> B2 -> B3 -> B5 -> B7 -> B8
+    B1 -> B2 -> B3 -> B5 -> B6 -> B8
+    B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+  Validasi struktur: OK
+  V(G) = E - N + 2 = 9 - 8 + 2 = 3
+  Predikat + 1      = 2 + 1 = 3
+
+Kasus Soal 4 (diberikan): E = 10, N = 9, satu komponen graf
+  V(G) = E - N + 2 = 10 - 9 + 2 = 3
+  Arti: 3 jalur independen -> basis path testing butuh 3 kasus uji.
+
+==============================================================================
+2. VERIFIKASI STATEMENT & BRANCH COVERAGE (SOAL 3)
+==============================================================================
+
+Skenario: hanya nilai 80
+  input   80 -> pernyataan ['S1', 'S2', 'S3'], cabang TRUE
+  Statement coverage = 3/4 = 75%
+  Branch coverage    = 1/2 = 50%
+
+Skenario: nilai 80 dan 40
+  input   80 -> pernyataan ['S1', 'S2', 'S3'], cabang TRUE
+  input   40 -> pernyataan ['S1', 'S2', 'S4'], cabang FALSE
+  Statement coverage = 4/4 = 100%
+  Branch coverage    = 2/2 = 100%
+
+Kesimpulan: satu kasus uji (80) menghasilkan 75% statement coverage
+dan 50% branch coverage; tambahan kasus uji 40 mencapai 100%/100%.
+
+==============================================================================
+3. VERIFIKASI JALUR LAYAK / TIDAK LAYAK
+==============================================================================
+Soal 5: syarat mencapai "Proses A" adalah x > 10 DAN x < 5
+  Penyisiran x pada [-2000, 2000] : 0 nilai memenuhi
+  Analisis interval: (10, +inf) interseksi (-inf, 5) = kosong
+  Kesimpulan: jalur B1->B2->B3(true) TIDAK LAYAK (infeasible)
+Soal 10a: kode asli dengan statusMahasiswa = 1 (konstan)
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B5 -> B7 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B5 -> B6 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+  LAYAK      : B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B8
+  Jumlah jalur sederhana = 4, layak = 1, tidak layak = 3
+  V(G) = 3 tetapi jalur layak hanya 1.
+  -> V(G) adalah batas ATAS, bukan jaminan jumlah jalur yang dapat diuji.
+
+Soal 10b: setelah statusMahasiswa dijadikan input (refactoring)
+  LAYAK      : B1 -> B2 -> B3 -> B5 -> B7 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B5 -> B6 -> B8
+  TIDAK LAYAK : B1 -> B2 -> B3 -> B4 -> B5 -> B7 -> B8
+  LAYAK      : B1 -> B2 -> B3 -> B4 -> B5 -> B6 -> B8
+  layak = 2, tidak layak = 2; dua kasus uji (status 1 dan 0) mencapai 100% branch coverage.
+
+==============================================================================
+4. ANALISIS ALIRAN DATA: PASANGAN DU & ANOMALI
+==============================================================================
+Soal 8 - kode: int nilai; nilai = 70; nilai = 85; cout << nilai;
+Jalur dianalisis : 1
+Pasangan DU      : 1
+  (B3 -> B4) var 'nilai' : 1 jalur unik
+Anomali def-without-use (dead store):
+  definisi nilai di B2 tidak pernah digunakan
+  Kesimpulan: keluaran 85; definisi 70 adalah dead store (DDU).
+
+Soal 9 contoh 1 - kode: harga/diskon dengan cabang if
+Jalur dianalisis : 2
+Pasangan DU      : 5
+  (B1 -> B3) var 'harga' : 1 jalur unik
+  (B1 -> B5) var 'harga' : 2 jalur unik
+  (B2 -> B5) var 'diskon' : 1 jalur unik
+  (B4 -> B5) var 'diskon' : 1 jalur unik
+  (B5 -> B6) var 'total' : 1 jalur unik
+  Kriteria (terpenuhi/total): {'All-Defs': (4, 4), 'All-Uses': (5, 5), 'All-DU-Paths': (6, 6)}
+  Catatan: (d2 -> u3) hanya terpenuhi pada jalur FALSE,
+           (d3 -> u3) hanya pada jalur TRUE -> All-Uses butuh 2 kasus uji.
+
+Soal 10 - kode KRS (statusMahasiswa sebagai input)
+Jalur dianalisis : 4
+Pasangan DU      : 3
+  (B1 -> B5) var 'sks' : 1 jalur unik
+  (B2 -> B3) var 'statusMahasiswa' : 1 jalur unik
+  (B4 -> B5) var 'sks' : 1 jalur unik
+  Catatan: pada jalur mahasiswa aktif, definisi sks = 0 (B1)
+           langsung ditimpa sks = 20 (B4) -> dead store lokal (DDU).
+           statusMahasiswa hanya punya 1 definisi (B2), 1 p-use (B3).
+
+==============================================================================
+SEMUA PEMERIKSAAN (assert) LULUS - angka pada dokumen konsisten.
+==============================================================================

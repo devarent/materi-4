@@ -1,0 +1,10 @@
+﻿=== Soal 2: CFG nilai kelulusan ===
+Input nilai = 75
+[JEJAK] B1  nilai = 75
+[JEJAK] B2  if (nilai >= 60)
+[JEJAK] B3  cout << "Lulus"
+Lulus
+[JEJAK] B5  cout << "Selesai"
+Selesai
+[JEJAK] B6  return 0
+

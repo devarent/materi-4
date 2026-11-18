@@ -1,0 +1,19 @@
+﻿=== Soal 10: KRS - CFT & DFT ===
+
+Mode asli (statusMahasiswa = 1 konstan):
+  [JEJAK] B1  sks = 0
+  [JEJAK] B2  baca statusMahasiswa = 1
+  [JEJAK] B3  if (statusMahasiswa == 1)
+  [JEJAK] B4  sks = 20
+  [JEJAK] B5  if (sks >= 20)
+  [JEJAK] B6  cout "Boleh mengambil mata kuliah"
+Boleh mengambil mata kuliah
+  [JEJAK] B8  selesai
+
+Catatan statis:
+  - Karena statusMahasiswa selalu 1, cabang else pada B3 tidak
+    mungkin dieksekusi -> jalur B1-B2-B3(false)-B5-B7-B8 tidak layak.
+  - Cabang B5 false juga tidak layak karena sks pasti 20 setelah B4.
+  - Agar kedua cabang dapat diuji, statusMahasiswa harus menjadi
+    parameter/input (lihat mode parametrik).
+
