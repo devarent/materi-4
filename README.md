@@ -1,4 +1,38 @@
 
+<!-- identity-block -->
+<div align="center">
+
+# week-4-programming-fundamentals
+
+<sub>Materi praktikum minggu ke-4 - pemrograman dasar dan sistem komputer.</sub>
+
+</div>
+
+## At a glance
+
+| Field | Detail |
+| --- | --- |
+| Repository | week-4-programming-fundamentals |
+| Primary language | Python |
+| Topics | cplusplus, education, materi, praktikum, programming, python |
+| License | MIT |
+| Branch | main |
+| Maintainer | [@devarent](https://github.com/devarent) |
+
+## Overview
+
+week-4-programming-fundamentals is a hands-on repository focused on: Materi praktikum minggu ke-4 - pemrograman dasar dan sistem komputer.. Primary language: Python. Topics: cplusplus, education, materi, praktikum, programming, python. The README below documents the project; use the table above for a quick overview.
+
+### Global references
+
+<div align="center">
+
+🇮🇸 Iceland &middot; 🇳🇿 New Zealand &middot; 🇨🇭 Switzerland &middot; 🇸🇮 Slovenia &middot; 🇮🇪 Ireland &middot; 🇦🇹 Austria &middot; 🇵🇹 Portugal &middot; 🇸🇬 Singapore &middot; 🇫🇮 Finland
+
+</div>
+
+---
+
 <!-- dbx-style-kit -->
 <div align="center">
 
