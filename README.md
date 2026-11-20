@@ -36,7 +36,7 @@ week-4-programming-fundamentals is a hands-on repository focused on: Materi prak
 <!-- dbx-style-kit -->
 <div align="center">
 
-<img src="https://img.shields.io/badge/materi-4-1f6feb?style=for-the-badge" alt="materi-4" />
+<img src="https://img.shields.io/badge/week-4-programming-fundamentals-1f6feb?style=for-the-badge" alt="week-4-programming-fundamentals" />
 <img src="https://img.shields.io/badge/LANG%20Python-3178c6?style=for-the-badge" alt="LANG Python" />
 <img src="https://img.shields.io/badge/STARS%200-eab308?style=for-the-badge" alt="STARS 0" />
 <img src="https://img.shields.io/badge/LICENSE%20MIT-22c55e?style=for-the-badge" alt="LICENSE MIT" />
@@ -59,7 +59,7 @@ week-4-programming-fundamentals is a hands-on repository focused on: Materi prak
 
 📚
 
-# materi-4
+# week-4-programming-fundamentals
 
 **Materi praktikum minggu ke-4 - pemrograman dasar dan sistem komputer.**
 
@@ -80,7 +80,7 @@ Materi praktikum minggu ke-4 - pemrograman dasar dan sistem komputer. Repositori
 ## Project Structure
 
 ```text
-materi-4/
+week-4-programming-fundamentals/
 |-- Tugas-Bab4-CFT-DFT/
 |-- Tugas-Bab5-Arsitektur-Kualitas/
 |-- .gitignore
@@ -89,8 +89,8 @@ materi-4/
 ## Getting Started
 
 `ash
-git clone https://github.com/devarent/materi-4.git
-cd materi-4
+git clone https://github.com/devarent/week-4-programming-fundamentals.git
+cd week-4-programming-fundamentals
 `
 
 Ikuti petunjuk pada file dokumentasi di dalam repository untuk menyiapkan lingkungan pengembangan.
@@ -119,7 +119,7 @@ Proyek ini dilisensikan di bawah MIT License. Lihat file [LICENSE](LICENSE).
 
 ## Project Governance
 
-[![CI](https://github.com/devarent/materi-4/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/materi-4/actions/workflows/ci.yml)
+[![CI](https://github.com/devarent/week-4-programming-fundamentals/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/week-4-programming-fundamentals/actions/workflows/ci.yml)
 
 [Contributing](CONTRIBUTING.md) | [Security Policy](SECURITY.md) | [Code of Conduct](CODE_OF_CONDUCT.md)
 
